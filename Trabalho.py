@@ -1,6 +1,5 @@
 from collections import deque
 
-# Representação do grafo como lista de adjacência
 grafo = {
     "Manaus":      ["Belém", "Fortaleza"],
     "Belém":       ["Manaus", "Recife", "Fortaleza"],
@@ -18,16 +17,13 @@ grafo = {
 
 
 def bfs(origem, destino):
-    # Caso origem e destino sejam iguais
     if origem == destino:
         print(f"Origem e destino são o mesmo centro: {origem}")
         return
 
-    # Fila do BFS: cada elemento é o caminho percorrido até o momento
     fila = deque()
     fila.append([origem])
 
-    # Controle de nós visitados para evitar ciclos
     visitados = set()
     visitados.add(origem)
 
@@ -35,12 +31,10 @@ def bfs(origem, destino):
         caminho_atual = fila.popleft()
         no_atual = caminho_atual[-1]
 
-        # Visita cada vizinho do nó atual
         for vizinho in grafo[no_atual]:
             if vizinho not in visitados:
                 novo_caminho = caminho_atual + [vizinho]
 
-                # Chegou ao destino
                 if vizinho == destino:
                     paradas = len(novo_caminho) - 1
                     print(f"Rota encontrada: {' → '.join(novo_caminho)}")
@@ -50,24 +44,22 @@ def bfs(origem, destino):
                 visitados.add(vizinho)
                 fila.append(novo_caminho)
 
-    # Se saiu do while sem encontrar, não existe rota
     print(f"Não existe rota entre {origem} e {destino}.")
 
 
-# Testes solicitados
-print("=" * 50)
+print("------------------------------")
 print("Teste 1: Manaus → Porto Alegre")
-print("=" * 50)
+print("------------------------------")
 bfs("Manaus", "Porto Alegre")
 
 print()
-print("=" * 50)
+print("------------------------------")
 print("Teste 2: Belém → Goiânia")
-print("=" * 50)
+print("------------------------------")
 bfs("Belém", "Goiânia")
 
 print()
-print("=" * 50)
+print("------------------------------")
 print("Teste 3: Fortaleza → RJ")
-print("=" * 50)
+print("------------------------------")
 bfs("Fortaleza", "RJ")
